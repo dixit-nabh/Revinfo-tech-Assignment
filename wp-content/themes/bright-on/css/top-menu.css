@@ -1,0 +1,10 @@
+.cstmul{
+    justify-content: space-between;
+    width: 100%;
+  }
+  .ulwrap{
+    width: 50%;
+  }
+  .cstmul li a{
+    color: white;
+  }
