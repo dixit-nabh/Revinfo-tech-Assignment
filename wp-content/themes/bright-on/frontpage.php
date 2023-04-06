@@ -417,8 +417,16 @@ $offer_desc = get_field('offer_desc');
         </div>
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
-            <?php while(have_rows('client_repeater')){ the_row();?>
-              <div class="carousel-item active">
+          <?php 
+            $count = 0;
+             while(have_rows('client_repeater')){ the_row();?>
+              <div class="carousel-item <?php 
+                            if($count==0){
+                              echo "active";  
+                            }
+                            else{
+                                echo " ";
+                            }?>" data-interval='2000'>
                 <div class="client_container layout_padding">
                   <div class="img-box">
                     <img src="<?php echo get_sub_field('client_img');?>" alt="">
@@ -437,7 +445,11 @@ $offer_desc = get_field('offer_desc');
                   </div>
                 </div>
               </div>
-            <?php }?>  
+              <?php 
+                        $count++;
+                        }
+                        ?>
+ 
             <!-- <div class="carousel-item">
               <div class="client_container layout_padding">
                 <div class="img-box">
@@ -503,14 +515,17 @@ $offer_desc = get_field('offer_desc');
   <!-- end client section -->
 
   <!-- contact section -->
-
+<?php
+$req_heading = get_field('req_heading'); 
+$call_title = get_field('call_title');
+if($call_title && $req_heading){?>
   <section class="contact_section layout_padding">
     <div class="container ">
       <div class="heading_container ">
         <h2 class="">
-          Request
+          <?php echo $req_heading;?>
           <span>
-            A call Back
+            <?php echo $call_title;?>
           </span>
 
         </h2>
@@ -519,7 +534,8 @@ $offer_desc = get_field('offer_desc');
     <div class="container">
       <div class="row">
         <div class="col-md-6 ">
-          <form action="#">
+           <?php  echo do_shortcode('[gravityform id="1" title="false" description="false" ajax="true" tabindex="49"]'); ?>
+          <!-- <form action="#">
             <div>
               <input type="text" placeholder="Name" />
             </div>
@@ -537,20 +553,26 @@ $offer_desc = get_field('offer_desc');
                 SEND
               </button>
             </div>
-          </form>
+          </form> -->
         </div>
         <div class="col-md-6">
           <!-- map section -->
-          <div class="map_section">
-            <div id="map" class="w-100 h-100"></div>
-          </div>
-
+          <?php $map = get_field('map_link');
+          if($map){?>
+            <div class="map_section">
+              <div id="" class="w-100 h-100">
+                  <iframe src="<?php echo $map;?>" width="100%" height="450" style="border:0;"        
+                  allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">      
+                  </iframe>
+              </div>
+            </div>
+          <?php }?>
           <!-- end map section -->
         </div>
       </div>
     </div>
   </section>
-
+<?php }?>
   <!-- end contact section -->
 
 <?php get_footer();?>

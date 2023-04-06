@@ -86,8 +86,16 @@ $logo_text = get_field('logo_text','option');
         
           <?php if('banner_content'){?>
             <div class="carousel-inner">
-              <?php while(have_rows('banner_content','option')){ the_row();?>
-                <div class="carousel-item active">
+              <?php 
+              $count = 0;
+              while(have_rows('banner_content','option')){ the_row();?>
+                <div class="carousel-item <?php 
+                            if($count==0){
+                              echo "active";  
+                            }
+                            else{
+                                echo " ";
+                            }?>" data-interval='2000'>
                   <div class="row">
                     <div class="col-md-6">
                       <div class="detail-box">
@@ -112,7 +120,10 @@ $logo_text = get_field('logo_text','option');
                     </div>
                   </div>
                 </div>
-              <?php }?>  
+                <?php 
+                        $count++;
+                        }
+                        ?>
               <!-- <div class="carousel-item">
                 <div class="row">
                   <div class="col-md-6">
